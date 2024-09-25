@@ -1,1 +1,14 @@
 // app global css in SCSS form
+
+.primary-color {
+    color: $primary;
+}
+
+.primary-button {
+    background-color: $primary;
+    color: black;
+}
+
+.btn-fixed-width {
+    width: 160px;
+}
