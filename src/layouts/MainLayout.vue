@@ -1,106 +1,57 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+defineOptions({
+  name: 'MainLayout'
+});
+
+const search = ref<string>('')
+const mode = ref<'dark' | 'light'>('light')
+
+function toggleToLight () {
+  mode.value = 'light'
+}
+
+function toggleToDark () {
+  mode.value = 'dark'
+}
+
+</script>
+
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
+    <q-header elevated class="bg-transparent q-py-sm">
+      <q-toolbar class="flex items-center" style="gap: 20px">
         <q-toolbar-title>
-          Quasar App
+          <router-link to="/">
+            <q-img src='ryx-logo.png' width="8rem" />
+          </router-link>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="q-pa-md" :class="{
+          'hidden': $q.screen.lt.md,
+          'block': $q.screen.gt.md
+        }">
+          <q-btn flat label="Movie" class="text-white" to="/" />
+          <q-btn flat label="TV Shows" class="text-white" to="/tv-show" />
+          <q-btn flat label="Browse" class="text-white" />
+          <q-btn flat label="Person" class="text-white" />
+          <q-btn flat label="Liked" class="text-white" />
+        </div>
+
+        <q-input rounded dense standout placeholder="Search movie or tv show" v-model="search" bg-color="grey-8" :class="{
+          'hidden': $q.screen.lt.md,
+          'block': $q.screen.gt.md
+        }" style="width: 300px"  />
+
+        <q-icon v-if="mode === 'dark'"  name="brightness_5" size="2em" @click="toggleToLight" />
+        <q-icon v-if="mode === 'light'" name="brightness_7" size="2em" @click="toggleToDark" />
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
-
-defineOptions({
-  name: 'MainLayout'
-});
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-</script>
