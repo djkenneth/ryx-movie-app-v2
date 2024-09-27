@@ -1,61 +1,44 @@
 <script setup lang="ts">
-import axios from 'axios';
+import { ref, computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { ref, onBeforeMount, computed } from 'vue';
-import imagePath from '../utils/imagePath';
-import { Discover } from 'src/types';
+import imagePath from '@/utils/imagePath';
 import Container from '@/components/ContainerLayout.vue'
+import { Discover } from '@/types';
 
 defineOptions({
   name: 'CarouselComponent'
+});
+
+interface Props {
+    discoverData?: Discover[];
+};
+
+withDefaults(defineProps<Props>(), {
+    discoverData: () => []
 });
 
 const $q = useQuasar()
 
 const slide = ref(1)
 const autoplay = ref(20000)
-const movies = ref<Discover[]>([])
-
-const discoverMovie = async () => {
-    try {
-        const type = 'movie';
-        const sortBy = 'popularity.desc';
-        const page = 1;
-        const year = 2024;
-        // const genre = 'Action';
-        const res = await axios.get(`https://api.themoviedb.org/3/discover/${type}?api_key=${import.meta.env.VITE_APP_TMDB_API_KEY}&sort_by=${sortBy}&page=${page}&${type === 'movie' ? 'year=' : 'primary_release_year='}${year}`)
-        // console.log(res.data.results)
-        movies.value = res.data.results.splice(0, 7)
-    } catch (err) {
-        console.log(err)
-    }
-}
 
 const buttonSize = computed(() => {
     return $q.screen.gt.sm ? 'md' : 'sm'
-})
-
-const carouselHeight = computed(() => {
-    return $q.screen.gt.md ? '600px' : '400px'
-})
-
-onBeforeMount(() => {
-    discoverMovie()
 })
 </script>
 
 <template>
     <q-carousel animated v-model="slide" navigation infinite arrows :autoplay="autoplay" transition-prev="slide-right"
-        transition-next="slide-left" :height="carouselHeight">
-        <q-carousel-slide v-for="item in movies" :key="item.id" :name="item.id"
-            :img-src="imagePath(item.backdrop_path, 'original')" class="flex bg-gradient">
-            <Container>
+        transition-next="slide-left" :height="$q.screen.gt.md ? '600px' : '400px'">
+        <q-carousel-slide v-for="item in discoverData" :key="item.id" :name="item.id"
+            :img-src="imagePath(item.backdrop_path, 'w1280')" class="flex bg-gradient">
+            <Container mainClassName="q-my-auto">
                 <div class="carousel-content" :class="{
                     'carousel-content-sm': $q.screen.lt.md
                 }">
                     <h2 class="text-white text-h2 text-weight-bold q-my-none" :class="{
                         'text-h4': $q.screen.lt.md
-                    }">{{ item.title }}</h2>
+                    }">{{ item.title || item.name }}</h2>
 
                     <h2 class="primary-color text-h2 text-weight-bold q-my-none flex items-start" :class="{
                         'text-h4': $q.screen.lt.md

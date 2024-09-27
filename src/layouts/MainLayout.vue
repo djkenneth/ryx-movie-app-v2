@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import Container from '../components/ContainerLayout.vue'
 import { ref } from 'vue';
+import { useWindowScroll } from '@vueuse/core'
+import { useDiscoverStore } from '@/stores/useDiscover'
+import Container from '../components/ContainerLayout.vue'
 
 defineOptions({
   name: 'MainLayout'
@@ -8,6 +10,12 @@ defineOptions({
 
 const search = ref<string>('')
 const mode = ref<'dark' | 'light'>('light')
+
+const storeDiscover = useDiscoverStore();
+storeDiscover.getDiscovers('movie', '2024');
+storeDiscover.getDiscovers('tv', '2024');
+
+const { y } = useWindowScroll()
 
 function toggleToLight() {
   mode.value = 'light'
@@ -21,8 +29,8 @@ function toggleToDark() {
 
 <template>
   <q-layout view="lHh Lpr lFf">
-
-    <q-header elevated class="bg-transparent q-py-sm">
+    <!-- :class="{'nav-section-scrolling': y > 100}" -->
+    <q-header elevated class="q-py-sm" :class="y > 100 ? 'bg-dark-1' : 'bg-transparent'">
       <Container>
         <q-toolbar class="flex items-center" style="gap: 20px">
           <q-toolbar-title>

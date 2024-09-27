@@ -13,4 +13,9 @@ export interface Discover {
     video: boolean;
     vote_average: number;
     vote_count: number;
+    first_air_date?: string;
+    name?: string;
+    origin_country?: string[];
+    original_name?: string;
+
 }

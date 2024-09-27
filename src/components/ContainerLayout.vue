@@ -1,12 +1,25 @@
-<script setup>
+<script setup lang="ts">
 defineOptions({
     name: 'ContainerLayout'
 });
+
+interface Props {
+    mainClassName?: string;
+    className?: null;
+};
+
+withDefaults(defineProps<Props>(), {
+    mainClassName: '',
+    className: null
+});
+
 </script>
 
 <template lang="">
-    <div class="container">
-        <slot></slot>
+    <div :class="mainClassName">
+        <div :class="['container', className]">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
