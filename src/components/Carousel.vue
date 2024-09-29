@@ -4,6 +4,7 @@ import { useQuasar } from 'quasar';
 import imagePath from '@/utils/imagePath';
 import Container from '@/components/ContainerLayout.vue'
 import { Discover } from '@/types';
+// import { removeStrspace } from '@/utils';
 
 defineOptions({
   name: 'CarouselComponent'
@@ -19,7 +20,7 @@ withDefaults(defineProps<Props>(), {
 
 const $q = useQuasar()
 
-const slide = ref(1)
+const slide = ref(0)
 const autoplay = ref(20000)
 
 const buttonSize = computed(() => {
@@ -29,8 +30,8 @@ const buttonSize = computed(() => {
 
 <template>
     <q-carousel animated v-model="slide" navigation infinite arrows :autoplay="autoplay" transition-prev="slide-right"
-        transition-next="slide-left" :height="$q.screen.gt.md ? '600px' : '400px'">
-        <q-carousel-slide v-for="item in discoverData" :key="item.id" :name="item.id"
+        transition-next="slide-left" :height="$q.screen.gt.md ? '600px' : '90dvh'">
+        <q-carousel-slide v-for="(item, index) in discoverData" :key="item.id" :name="index"
             :img-src="imagePath(item.backdrop_path, 'w1280')" class="flex bg-gradient">
             <Container mainClassName="q-my-auto">
                 <div class="carousel-content" :class="{

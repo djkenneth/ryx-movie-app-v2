@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import Container from '@/components/ContainerLayout.vue'
 import { Discover } from '@/types';
 // import { useMovieListStore } from '@/stores/useMovieList'
@@ -8,14 +9,33 @@ defineOptions({
     name: 'CategoryGridCards'
 });
 
+const router = useRouter()
+
 interface Props {
     title: string
+    type: 'movie' | 'tv'
     movies?: Discover[];
 };
 
 withDefaults(defineProps<Props>(), {
     movies: () => []
 });
+
+const viewRedirect = (item: Discover, type: 'movie' | 'tv') => {
+    if (type === 'movie') {
+        return router.push({
+            name: 'view-movie',
+            params: { title: item.title, id: item.id }
+        })
+    } else if (type === 'tv') {
+        return router.push({
+            name: 'view-tv',
+            params: { name: item.name, id: item.id }
+        })
+    }
+    // console.log('type', type)
+    // console.log('item', item)
+}
 
 </script>
 
@@ -28,13 +48,16 @@ withDefaults(defineProps<Props>(), {
             }">{{ title }}</h3>
             <div class="row">
                 <div v-for="item in movies" :key="item.id" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-                    <q-card class="rounded">
-                        <q-img :src="imagePath(item.poster_path, 'w500')" fit="cover" :height="$q.screen.gt.md ? '300px' : '200px'">
+                    <q-card class="rounded" @click="viewRedirect(item, type)">
+                        <q-img :src="imagePath(item.poster_path, 'w500')" fit="cover"
+                            :height="$q.screen.gt.md ? '300px' : '200px'">
                             <div class="absolute-bottom">
                                 <div class="flex column">
                                     <span class="text-h6">{{ item.title || item.name }}</span>
-                                    <span v-if="item.release_date" class="text-body2">{{ item.release_date.slice(0, 4) }}</span>
-                                    <span v-if="item.first_air_date" class="text-body2">{{ item.first_air_date?.slice(0, 4) }}</span>
+                                    <span v-if="item.release_date" class="text-body2">{{ item.release_date.slice(0, 4)
+                                        }}</span>
+                                    <span v-if="item.first_air_date" class="text-body2">{{ item.first_air_date?.slice(0,
+                                        4) }}</span>
                                 </div>
                             </div>
                         </q-img>
