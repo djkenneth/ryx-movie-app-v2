@@ -71,7 +71,7 @@ export const useMovieListStore = defineStore('movie-lists', {
         async fetchMovie(movie_id: string) {
             try {
                 const tmdb = await api.get(`/movie/${movie_id}?append_to_response=videos,images,credits,reviews,similar,recommendations,keywords,external_ids`);
-                const imdb = await axios.get(`https://www.omdbapi.com/?i=${tmdb.data.imdb_id}&apikey=${import.meta.env.VITE_APP_OMBD_API_KEY}`)
+                const imdb = await axios.get(`${import.meta.env.VITE_APP_OMBD_BASE_URL}/?i=${tmdb.data.imdb_id}&apikey=${import.meta.env.VITE_APP_OMBD_API_KEY}`)
 
                 const { Metascore, imdbVotes, imdbRating, Rated, Ratings } = await imdb.data;
 
