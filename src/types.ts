@@ -4,6 +4,21 @@ export type Genres = {
     name: string;
 }
 
+export type Cast = {
+    cast_id: number;
+    profile_path: string;
+    original_name: string;
+    known_for_department: string;
+    adult: boolean
+    character: string
+    credit_id: string
+    gender: number
+    id: number
+    name: string
+    order: number
+    popularity: number
+}
+
 export interface Discover {
     id: number;
     adult: boolean;
@@ -24,4 +39,7 @@ export interface Discover {
     origin_country?: string[];
     original_name?: string;
     genres?: Genres[]
+    credits?: {
+        cast: Cast[]
+    }
 }

@@ -6,6 +6,7 @@ import { defineStore } from 'pinia';
 // type MovieListType = 'now_playing' | 'popular' | 'top_rated' | 'upcoming'
 
 interface State {
+    isLoading: boolean
     nowPlaying: Discover[]
     popular: Discover[]
     topRated: Discover[]
@@ -15,6 +16,7 @@ interface State {
 
 export const useMovieListStore = defineStore('movie-lists', {
     state: (): State => ({
+        isLoading: true,
         nowPlaying: [],
         popular: [],
         topRated: [],
@@ -34,7 +36,10 @@ export const useMovieListStore = defineStore('movie-lists', {
             video: false,
             vote_average: 0,
             vote_count: 0,
-            genres: []
+            genres: [],
+            credits: {
+                cast: []
+            }
         },
     }),
     actions: {
@@ -71,22 +76,29 @@ export const useMovieListStore = defineStore('movie-lists', {
 
         async fetchMovie(movie_id: string) {
             try {
-                const tmdb = await api.get(`/movie/${movie_id}?append_to_response=videos,images,credits,reviews,similar,recommendations,keywords,external_ids`);
-                const imdb = await axios.get(`${import.meta.env.VITE_APP_OMBD_BASE_URL}/?i=${tmdb.data.imdb_id}&apikey=${import.meta.env.VITE_APP_OMBD_API_KEY}`)
+                this.isLoading = true;
+                if(this.movie_info.id === parseInt(movie_id)) {
+                    return;
+                } else {
+                    const tmdb = await api.get(`/movie/${movie_id}?append_to_response=videos,images,credits,reviews,similar,recommendations,keywords,external_ids`);
+                    const imdb = await axios.get(`${import.meta.env.VITE_APP_OMBD_BASE_URL}/?i=${tmdb.data.imdb_id}&apikey=${import.meta.env.VITE_APP_OMBD_API_KEY}`)
 
-                const { Metascore, imdbVotes, imdbRating, Rated, Ratings } = await imdb.data;
+                    const { Metascore, imdbVotes, imdbRating, Rated, Ratings } = await imdb.data;
 
-                tmdb.data.meta_score = Metascore;
-                tmdb.data.imdb_rating = imdbRating;
-                tmdb.data.imdb_votes = imdbVotes;
-                tmdb.data.rated = Rated;
-                tmdb.data.other_rate = Ratings;
+                    tmdb.data.meta_score = Metascore;
+                    tmdb.data.imdb_rating = imdbRating;
+                    tmdb.data.imdb_votes = imdbVotes;
+                    tmdb.data.rated = Rated;
+                    tmdb.data.other_rate = Ratings;
 
-                console.log('tmdb.data', tmdb.data)
+                    console.log('tmdb.data', tmdb.data)
 
-                this.movie_info = tmdb.data
+                    this.movie_info = tmdb.data
+                }
             } catch (error) {
                 console.error(error)
+            } finally {
+                this.isLoading = false;
             }
         }
     },

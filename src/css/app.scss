@@ -1,5 +1,9 @@
 // app global css in SCSS form
 
+body {
+  background-color: $dark-page
+}
+
 .primary-color {
     color: $primary;
 }
@@ -16,13 +20,85 @@
 .text-dark-1 {
   color: #141414 !important;
 }
+
 .bg-dark-1 {
-  background: #141414 !important;
+  background-color: #141414 !important;
+}
+.bg-dark-2 {
+  background-color: #373737;
 }
 
 .rounded {
     border-radius: 20px
 }
+
+/* Base colors */
+.c-bg-primary {
+  background-color: #1d4ed8; /* blue-700 */
+}
+.c-bg-secondary {
+  background-color: #9333ea; /* purple-600 */
+}
+.c-text-primary {
+  color: #1d4ed8; /* blue-700 */
+}
+.c-text-secondary {
+  color: #9333ea; /* purple-600 */
+}
+
+/* Typography */
+.c-text-xs { font-size: 0.75rem; } /* Extra small text */
+.c-text-sm { font-size: 0.875rem; } /* Small text */
+.c-text-base { font-size: 1rem; } /* Base text */
+.c-text-lg { font-size: 1.125rem; } /* Large text */
+.c-text-xl { font-size: 1.25rem; } /* Extra-large text */
+.c-text-2xl { font-size: 1.5rem; } /* 2x extra-large text */
+.c-text-3xl { font-size: 1.875rem; } /* 3x extra-large text */
+.c-font-light { font-weight: 300; } /* Light font */
+.c-font-normal { font-weight: 400; } /* Normal font */
+.c-font-bold { font-weight: 700; } /* Bold font */
+.c-font-extrabold { font-weight: 800; } /* Extra-bold font */
+.c-leading-tight { line-height: 1.25; } /* Tight line height */
+.c-leading-normal { line-height: 1.5; } /* Normal line height */
+.c-tracking-wide { letter-spacing: 0.05em; } /* Wide letter spacing */
+
+/* Spacing (margin and padding) */
+.c-m-1 { margin: 0.25rem; }
+.c-m-2 { margin: 0.5rem; }
+.c-m-4 { margin: 1rem; }
+.c-p-1 { padding: 0.25rem; }
+.c-p-2 { padding: 0.5rem; }
+.c-p-4 { padding: 1rem; }
+
+/* Layout (flexbox and grid) */
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.c-items-center { align-items: center; }
+.c-justify-center { justify-content: center; }
+.c-grid { display: grid; }
+.c-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.c-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.c-container { width: 100%; max-width: 1280px; margin-left: auto; margin-right: auto; }
+
+/* Borders */
+.c-border { border-width: 1px; }
+.c-border-2 { border-width: 2px; }
+.c-rounded { border-radius: 0.25rem; }
+.c-rounded-full { border-radius: 9999px; }
+.c-border-primary { border-color: #1d4ed8; }
+
+/* Shadows */
+.c-shadow { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); }
+.c-shadow-lg { box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1); }
+
+/* Interactivity (hover effects, transitions) */
+.c-transition {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.c-hover\:bg-primary:hover { background-color: #1d4ed8; }
+.c-hover\:bg-secondary:hover { background-color: #9333ea; }
 
 // .gap-#{$gapSize} {
 //     gap: #{$gapSize}px;
@@ -34,14 +110,3 @@
       gap: $gapSize;
     }
 }
-
-// @for $i from 1 through 4 {
-//     $fontsize: 10px * $i;
-//     .font-#{$i} { 
-//         font-size: $fontsize;
-//         }
-// }
-
-// .font-#{$fontsize} {
-//       font-size: $fontsize;
-// }

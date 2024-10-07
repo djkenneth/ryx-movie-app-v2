@@ -39,17 +39,14 @@ const viewRedirect = (item: Discover, type: 'movie' | 'tv') => {
 </script>
 
 <template>
-    <Container mainClassName="bg-dark-1">
+    <Container>
         <div class="example-row-equal-width q-py-xl">
-            <h3 class="text-weight-bold text-white q-my-none q-mb-lg" :class="{
-                'text-h4': $q.screen.lt.md,
-                'text-h3': $q.screen.gt.md,
-            }">{{ title }}</h3>
+            <h3 class="text-weight-bold text-white q-my-none q-mb-lg" :class="$q.screen.gt.md ? 'text-h3' : 'text-h4'">{{ title }}</h3>
             <div class="row">
                 <div v-for="item in movies" :key="item.id" class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
                     <q-card class="rounded" @click="viewRedirect(item, type)">
-                        <q-img :src="imagePath(item.poster_path, 'w500')" fit="cover"
-                            :height="$q.screen.gt.md ? '300px' : '200px'">
+                        <q-img :src="imagePath(item.poster_path, 'w500')" 
+                            >
                             <div class="absolute-bottom">
                                 <div class="flex column">
                                     <span class="text-h6">{{ item.title || item.name }}</span>
