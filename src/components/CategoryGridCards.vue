@@ -4,6 +4,7 @@ import Container from '@/components/ContainerLayout.vue'
 import { Discover } from '@/types';
 // import { useMovieListStore } from '@/stores/useMovieList'
 import imagePath from '@/utils/imagePath';
+import { removeStrspace } from '@/utils'
 
 defineOptions({
     name: 'CategoryGridCards'
@@ -25,16 +26,14 @@ const viewRedirect = (item: Discover, type: 'movie' | 'tv') => {
     if (type === 'movie') {
         return router.push({
             name: 'view-movie',
-            params: { title: item.title, id: item.id }
+            params: { title: removeStrspace(item.title as string).toLowerCase(), id: item.id }
         })
     } else if (type === 'tv') {
         return router.push({
             name: 'view-tv',
-            params: { name: item.name, id: item.id }
+            params: { name: removeStrspace(item.name as string).toLowerCase(), id: item.id }
         })
     }
-    // console.log('type', type)
-    // console.log('item', item)
 }
 
 </script>
@@ -71,19 +70,11 @@ const viewRedirect = (item: Discover, type: 'movie' | 'tv') => {
 
 <style lang="scss" scoped>
 .example-row-equal-width {
-    .rounded {
-        border-radius: 20px
-    }
-
     .row>div {
         padding-inline: 5px;
         padding-block: 10px;
         // background: rgba(#999, .15);
         // border: 1px solid rgba(#999, .2);
     }
-
-    // .row+.row {
-    //     margin-top: 1rem;
-    // }
 }
 </style>

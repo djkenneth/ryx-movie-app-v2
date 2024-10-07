@@ -33,7 +33,8 @@ export const useMovieListStore = defineStore('movie-lists', {
             title: '',
             video: false,
             vote_average: 0,
-            vote_count: 0
+            vote_count: 0,
+            genres: []
         },
     }),
     actions: {
@@ -81,8 +82,9 @@ export const useMovieListStore = defineStore('movie-lists', {
                 tmdb.data.rated = Rated;
                 tmdb.data.other_rate = Ratings;
 
+                console.log('tmdb.data', tmdb.data)
+
                 this.movie_info = tmdb.data
-                console.log('adasd', await tmdb.data)
             } catch (error) {
                 console.error(error)
             }

@@ -1,3 +1,9 @@
+
+export type Genres = {
+    id: number;
+    name: string;
+}
+
 export interface Discover {
     id: number;
     adult: boolean;
@@ -17,5 +23,5 @@ export interface Discover {
     name?: string;
     origin_country?: string[];
     original_name?: string;
-
+    genres?: Genres[]
 }

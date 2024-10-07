@@ -49,7 +49,7 @@ const buttonSize = computed(() => {
                         'carousel-overview': $q.screen.lt.md
                     }">{{ item.overview }}</p>
 
-                    <div class="flex carousel-buttons">
+                    <div class="flex gap-10">
                         <q-btn class="primary-button" :size="buttonSize" rounded label="View more" />
                         <q-btn outline round color="primary" :size="buttonSize" icon="favorite" />
                     </div>
@@ -84,10 +84,6 @@ const buttonSize = computed(() => {
 
     .carousel-content-sm {
         width: 90%;
-        gap: 10px;
-    }
-
-    .carousel-buttons {
         gap: 10px;
     }
 }

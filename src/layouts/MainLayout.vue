@@ -32,7 +32,7 @@ function toggleToDark() {
     <!-- :class="{'nav-section-scrolling': y > 100}" -->
     <q-header elevated class="q-py-sm" :class="y > 100 ? 'bg-dark-1' : 'bg-transparent'">
       <Container>
-        <q-toolbar class="flex items-center" style="gap: 20px">
+        <q-toolbar class="flex items-center gap-20">
           <q-toolbar-title>
             <router-link to="/">
               <q-img src='ryx-logo.png' width="8rem" />

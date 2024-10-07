@@ -19,3 +19,29 @@
 .bg-dark-1 {
   background: #141414 !important;
 }
+
+.rounded {
+    border-radius: 20px
+}
+
+// .gap-#{$gapSize} {
+//     gap: #{$gapSize}px;
+// }
+
+@for $i from 1 through 50 {
+    $gapSize: 1px * $i;
+    .gap-#{$i} { 
+      gap: $gapSize;
+    }
+}
+
+// @for $i from 1 through 4 {
+//     $fontsize: 10px * $i;
+//     .font-#{$i} { 
+//         font-size: $fontsize;
+//         }
+// }
+
+// .font-#{$fontsize} {
+//       font-size: $fontsize;
+// }
