@@ -80,3 +80,10 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+
+### To add TailwindCSS Support
+See [Github quasar tailwind documentation](https://github.com/quasarframework/quasar/discussions/17386)
+
+### To add Tailwind prefix
+See [Stackoverflow Tailwind Quasar](https://stackoverflow.com/questions/70034269/how-to-use-tailwind-css-with-quasar-framework)

@@ -28,6 +28,7 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
+      'tailwind.css',
       'app.scss'
     ],
 
